@@ -1,0 +1,128 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --mainColor: #6dced1;
+    --mainColorDarker: #43aaad;
+}
+.block-wrapper {
+    display: inline-block;
+    border: 1px solid lightgray;
+    box-shadow: 0px 1px 3px rgba(0,0,0,.2);
+    border-radius: 3px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    background-color: white;
+    position: relative;
+    padding: 0 5px;
+}
+
+.block-wrapper.function-wrapper {
+    border-color: #6dced1;
+}
+
+.block {
+    display: inline-block;
+    padding: 10px 5px;
+}
+
+.block > .block-wrapper:hover {
+    background-color: #fef8ee;
+}
+
+.block .function {
+    background-color: var(--mainColor);
+    color: white;
+    padding: .25rem .5rem;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.block input, .block select {
+    background-color: white;
+    max-width: 50px;
+    border: 1px solid lightgray;
+    box-shadow: 0px 3px 3px rgba(0,0,0,.2);
+    border-radius: 3px;
+    line-height: 20px;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    text-align: center;
+}
+
+.block input:focus, .block select:focus {
+    outline: none !important;
+    -webkit-appearance:none;
+    box-shadow: 0px 3px 3px rgba(0,0,0,.2);
+}
+
+.block select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    padding-right: 25px;
+}
+
+.block .input-group-text {
+    box-shadow: 0px 3px 3px rgba(0,0,0,.2);
+}
+
+.block-actions {
+    display: none;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.block-actions button {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.block-wrapper:hover > .block-actions {
+    display: block;
+}
+
+.add-btn {
+    background-color: var(--mainColor);
+    color: white;
+}
+
+.add-btn:hover {
+    background-color: var(--mainColorDarker);
+}
+
+.delete-btn {
+    background-color: #e87172;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c45455;
+}
+.form-group input {
+    border-radius: 3px 0 0 3px;
+    border-right: none;
+}
+.form-group select {
+    max-width: unset;
+    background-color: var(--mainColor);
+    color: white;
+    border-left: none;
+    margin-left: -4px;
+    border-radius: 0 3px 3px 0;
+}

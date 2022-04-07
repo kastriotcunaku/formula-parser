@@ -1,0 +1,69 @@
+<div class="block" [class.active]="active" (mouseover)="active = true" (mouseout)="active = false" *ngIf="block">
+  <ng-container [ngSwitch]="block.type">
+    <!-- PARENTHESES -->
+    <div class="block-wrapper" *ngSwitchCase="'PAREN'">
+      <app-block [(block)]="block.expression" (blockChange)="childBlockChanged($event, i)" (varChange)="onVarChange($event.name, $event.value)"></app-block>
+      <ng-container *ngTemplateOutlet="actionButtons"></ng-container>
+    </div>
+
+    <!-- FUNCTION -->
+    <div class="block-wrapper function-wrapper" *ngSwitchCase="'FUNCTION'">
+      <span class="function">{{ block.name }}</span>
+      <ng-container *ngFor="let argument of block.arguments; let i = index">
+        <app-block [(block)]="block.arguments[i]" (blockChange)="childBlockChanged($event, i)" (varChange)="onVarChange($event.name, $event.value)"></app-block>
+      </ng-container>
+      <ng-container *ngTemplateOutlet="actionButtons"></ng-container>
+    </div>
+
+    <!-- NUMBER -->
+    <div *ngSwitchCase="'NUMBER'"><input type="number" [(ngModel)]="block.value" /></div>
+    <!-- <div *ngSwitchCase="'NUMBER'" class="form-group">
+      <input type="number" [(ngModel)]="block.value" />
+      <select [(ngModel)]="block.type">
+        <option value="NUMBER">Number</option>
+        <option value="DECIMAL">Decimal</option>
+      </select>
+    </div> -->
+
+    <!-- VARIABLE -->
+    <!-- <div *ngSwitchCase="'VARIABLE'"><input type="number" [placeholder]="block.name" [(ngModel)]="block.value" (ngModelChange)="onVarChange(block.name, block.value)" /></div> -->
+    <div *ngSwitchCase="'VARIABLE'" class="input-group input-group-sm mb-3">
+      <span class="input-group-text">{{block.name}}</span>
+      <input type="number" class="form-control" [(ngModel)]="block.value" (ngModelChange)="onVarChange(block.name, block.value)" />
+    </div>
+
+    <!-- PI -->
+    <span *ngSwitchCase="'PI'" class="function">PI</span>
+
+    <!-- DEFAULT:  Select operator -->
+    <ng-container *ngSwitchDefault>
+        <app-block *ngIf="block.left" [(block)]="block.left" (blockChange)="childBlockChanged($event, null, 'left')" (varChange)="onVarChange($event.name, $event.value)"></app-block>
+        <select [(ngModel)]="block.type">
+          <option value="ADDITION">+</option>
+          <option value="SUBTRACTION">-</option>
+          <option value="MULTIPLICATION">*</option>
+          <option value="DIVISION">&divide;</option>
+        </select>
+        <app-block *ngIf="block.right" [(block)]="block.right" (blockChange)="childBlockChanged($event, null, 'right')" (varChange)="onVarChange($event.name, $event.value)"></app-block>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #actionButtons>
+  <div class="block-actions">
+    <div class="dropdown d-inline-block">
+      <button type="button" class="add-btn" title="Add block" data-bs-toggle="dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="addMenu">
+        <li><a class="dropdown-item" (click)="addBlock('ADDITION')">Addition</a></li>
+        <li><a class="dropdown-item" (click)="addBlock('SUBTRACTION')">Subtraction</a></li>
+        <li><a class="dropdown-item" (click)="addBlock('MULTIPLICATION')">Multiplication</a></li>
+        <li><a class="dropdown-item" (click)="addBlock('DIVISION')">Division</a></li>
+      </ul>
+    </div>
+    <button type="button" class="delete-btn" (click)="deleteBlock()" title="Delete block">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+</ng-template>
